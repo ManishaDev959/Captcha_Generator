@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha Generator</title>
+    <style>
+        body{
+            display: flex;
+            justify-content:center ;
+            align-items: center;
+           height: 100vh;
+           flex-direction: column;
+           gap:10px;
+           font-size: 20px;
+           background-color: cornflowerblue;
+        }
+        h1{
+            text-align: center;
+            font-size: 28px;
+        }
+        button{
+            border-radius:5px;
+            cursor: pointer;
+            background-color: aqua;
+            border: none;
+            height:40px;
+            width:120px;
+            font-size: 15px;
+        }
+        .generator{
+            font-size: 2rem;
+            padding:1rem;
+            background-color:rgb(243, 88, 140);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            width:200px;
+            justify-content: center;
+            text-align: center;
+        }
+        .generator #gen{
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .fillinput{
+            font-size: 2rem;
+            padding:1rem;
+            background-color:palevioletred;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            width:200px;
+            justify-content: center;
+            text-align: center;
+        }
+        .fillinput #client-text{
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+      <h1 class="status" id="status">CAPTCHA GENERATOR</h1>
+      <div class="generator">
+        <input type="text" readonly id="gen" class="gen">
+      </div>
+    
+      <div class="fillinput">
+        <input type="text" id="client-text" class="client-text">
+      </div>
+
+      <button class="sub" id="sub" type="button">Submit</button>
+      <button class="ref" id="ref" type="button">Refresh</button>
+</body>
+<script>
+    let display=document.getElementById('status');
+    let body=document.body;
+    let Submit=document.getElementById('sub');
+    let Refresh=document.getElementById('ref');
+    let char='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    var captcha="";
+    body.onload=function generate()
+    {
+         var length=6;
+         for(let i=0;i<length;i++)
+         {
+            var pwd=Math.floor(Math.random() *char.length);
+            captcha+=char.substring(pwd, pwd+1);
+         }
+         document.getElementById('gen').value=captcha;
+         display.innerHTML="Captcha Generator";
+    }
+    Submit.onclick=function check()
+    {
+        let input=document.getElementById('client-text').value;
+        if(input=== ""){
+            display.innerHTML="Please enter the text";
+        }
+        else if(input=== captcha){
+           display.innerHTML="Captcha Matched";
+        }
+        else{
+            display.innerHTML="Captcha didn't match, Please try again!!!!";
+        }
+    }
+    Refresh.onclick=function ref()
+    {
+        captcha='';
+        let char1='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+        var length=6;
+         for(let i=0;i<length;i++)
+         {
+            var pwd1=Math.floor(Math.random() *char1.length);
+            captcha+=char1.substring(pwd1, pwd1+1);
+         }
+         document.getElementById('gen').value=captcha;
+         display.innerHTML="Captcha Generator";
+
+    }
+
+
+
+</script>
+
+
+
+</html>
